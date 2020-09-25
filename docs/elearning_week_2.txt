@@ -1,0 +1,7 @@
+PHP Alapok Állomány
+
+Próbáljátok ki a fenti diákon szereplő programokat
+PHP Webszerkesztés, a web programozás alapjai Állomány
+
+Ezt az 50. oldalig dolgozd fel. Különös tekintettel figyelj oda a formok kezelésére, 
+a POST és GET tömbök működésére. Próbáld ki a jegyzetben szereplő példákat!

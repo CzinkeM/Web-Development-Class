@@ -1,0 +1,174 @@
+Webprogramozás I. Állomány
+
+Ebből a 6. fejezet , kliens oldali adatok feldolgozása (107-128 oldal)
+Web programozási alapismeretek Állomány
+
+File kezelés 3.6.3 - 3.6.4 fejezet. 177 oldal - 180 oldalig.
+
+Amint látjátok, nem teljes könyveket adok fel, hiszen a 4 hét kevés lenne erre. Hanem egy-egy remek könyvből azokat a kis részeket, amelyek segítenek célorientáltan elsajátítani a legfontosabbakat.
+
+1. Feladat: Készíts beviteli űrlapot Név, Születési dátum (valódi dátum), email cím (kukacosság ellenőrzése), tajszám (csak számok). Majd a beküldött adatokat mentsd le egy file-ba a szerver oldalon.
+
+A php program többször is lefuthat. Tudjátok, itt minden mindig fut. Ezt többszörös beépítésnek nevezzük. Úgy lehet elkerülni, ha valamilyen eseményhez kötjük egy php blokk lefutását. Például csak akkor induljon el, ha ki lett töltve a form és el lett küldve:
+if (isset($_POST['nev'])) ...    vagy
+if ($_POST['nev']) != "") ...    vagy nem "" semmivel, hanem pl. valamilyen konkrét értékkel és csak akkor csinálsz valamit...
+
+2. Feladat: Menjen visszafelé is! Írj egy txt állományt nevekkel és mellé egy színnel
+Pl.:
+Laci,kék
+Sanyi,piros
+Bea,zöld
+Sári,piros
+stb...
+
+Kérd be egy ürlapon a nevet és színezd a hátteret olyan színűre, ami a txt állományban van a neve mellett.
+
+3. Feladat:
+Készíts egy txt file-t egy kóddal. Minden sorban legyen 12 karakter, vagy pont vagy csillag. Ez egy lámpa villogtatási minta, ahol a * jelenti a világító lámpát. Ha a kódot körbe körbe lefuttatod, akkor egy villogó fényjátékot kapsz. A lámpákat 12 képernyőn megjelenő jpg kép jelképezi (világító és sötét lámák képei).
+
+Pl:
+.....*......
+....*.*.....
+...*...*....
+..*.....*...
+stb...
+Villogtasd a lámpákat a txt-ben megadott kód szerint. A kódot persze egészítsd ki tetszés szerint. Oda-vissza futó fényjáték vagy bármilyen általad kitalált kombinációra.
+
+Segítség:
+Így tudsz kitenni egy képet:
+<img id="b0" src="ures.jpg">
+<img id="b1" src="ures.jpg">
+...
+Ha le akarod cserélni egy másik képre akkor: document.getElementById('b0').src='teli.jpg'
+
+A kódot át tudod vinni a kliens oldalra úgy, hogy a php progi kiolvassa a file-t majd generál oda egy java script tömböt kitöltve a kóddal. Én így szoktam (tudom, hogy nem a legszebb megoldás, de én szeretem):
+
+Ilyen egy JavaScript tömb, kezdőértékekkel kitöltve:
+ var progi = [
+ [ 0,0,0,0,0,0,0,0,0,0,0,0 ],
+ [ 0,0,0,0,0,0,0,0,0,0,0,0 ],
+ [ 0,0,0,0,0,0,0,0,0,0,0,0 ],
+ [ 0,0,0,0,0,0,0,0,0,0,0,0 ],
+ ];
+
+Beolvasom PHP-ben az állományt:
+        $file = fopen("kod.txt", "r") or die("Hiányzik az adatállomány");
+        $teljesfile=fread($file, filesize("kod.txt"));  // beolvasom a teljes txt állományt
+        fclose($file);
+       
+        $teljesfile=Str_replace(chr(10),"",$teljesfile);  // kiszedi a 10 -es karaktereket, elég a 13-as
+        $sorok = explode(chr(13), $teljesfile);           // a 13 -as karaktereknél külön tömbelembe robbantja szét
+
+Így generálom le PHP-ben a kitöltött tömböt a file alapján:
+
+print("var progi = [");
+        for($db=0 ; $db<SizeOf($sorok)-1; $db++)  // Ennyi soros lesz a tömb
+            {
+            $kod=""; for($n=0 ; $n<=11 ; $n++)    // Belegenerálom az elemeket
+                                                {
+                                                $kod = $kod . $sorok[$db][$n];
+                                                if ($n<11) $kod = $kod . ",";
+                                                }           
+            if ($db == SizeOf($sorok)) print("[".$kod."]");
+                                    else print("[".$kod."],");
+            }
+            print("];");
+Aztán már csak végigszaladok a tömbön és ahol 1 ott a világító lámpára cserélem az idX -képet ha 0 van a tömbbe akkor pedig sötét lámpa képére cserélem...
+
+Próbáld megoldani a feladatot önállóan!
+
+
+Ha nem sikerült volna megoldani, akkor íme egy megoldás (itt 0 és 1 a kód a fájlban):
+
+<html>
+<head>
+<?php
+$file = fopen("kod.txt", "r");
+$teljes = fread($file, filesize("kod.txt"));
+fclose($file);
+$sorok = explode(chr(13), $teljes);
+echo "<script> var tomb = [";
+for($i = 0; $i < sizeof($sorok) - 1; $i ++)
+{
+$tmpstr = "";
+for($j = 0; $j < strlen($sorok[$i]); $j ++)
+{
+if($sorok[$i][$j] == '0' || $sorok[$i][$j] == '1')
+{
+$tmpstr = $tmpstr . $sorok[$i][$j];
+}
+}
+echo "\"$tmpstr\"";
+if($i != sizeof($sorok) - 2)
+{
+echo ", ";
+}
+}
+echo "];\n";
+echo "function frissit(sor) {
+if(tomb.length <= sor)
+sor = 0;
+for(var i = 0; i < tomb[sor].length; i ++) {
+var kep = document.getElementById('kep' + i);
+if(tomb[sor][i] == '0')
+{
+kep.src = 'ures.jpg';
+}
+else if(tomb[sor][i] == '1')
+{
+kep.src = 'teli.jpg';
+}
+else
+{
+console.log('unknown character: ' + tomb[sor][i]);
+}
+}
+setTimeout(function() { frissit(sor + 1); }, 200);
+}";
+echo "</script>";
+?>
+</head>
+<body onload="frissit(0);">
+<img id="kep0" src="ures.jpg" />
+<img id="kep1" src="ures.jpg" />
+<img id="kep2" src="ures.jpg" />
+<img id="kep3" src="ures.jpg" />
+<img id="kep4" src="ures.jpg" />
+<img id="kep5" src="ures.jpg" />
+<img id="kep6" src="ures.jpg" />
+<img id="kep7" src="ures.jpg" />
+<img id="kep8" src="ures.jpg" />
+<img id="kep9" src="ures.jpg" />
+<img id="kep10" src="ures.jpg" />
+<img id="kep11" src="ures.jpg" />
+</body>
+</html>
+
+Valamint egy szuper rövid kódú megoldás, egész más logikával:
+
+<?
+$file = fopen("kod.txt","r");
+$xd = fread($file,filesize("kod.txt"));
+$sorok = explode("\n",$xd);
+unset($sorok[10]);
+for($i = 0; $i<11; $i++) {
+?>
+<img src="on.png" id="img<?=$i?>" style="<?=$i==0?"display:none":""?>">
+<?
+}
+?>
+<div id="xd"></div>
+<script>
+var arr = <?=json_encode($sorok)?>;
+var x=0;
+setInterval(function() {
+for(var i = 0; i<11; i++) {
+if(arr[x][i] == 0)
+document.getElementById("img"+i).src = "on.png";
+else if(arr[x][i] == 1)
+document.getElementById("img"+i).src = "off.png";
+}
+if(x == 9) x = 0;
+x++;
+},150);
+</script>

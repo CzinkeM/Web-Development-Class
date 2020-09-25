@@ -1,0 +1,24 @@
+A "PHP Webszerkesztés, a web programozás alapjai Állomány" -ból olvassátok el a 21. -fejezettől (51. -oldaltól) a végéig az adatbázis kapcsolatot.
+
+http://aries.ektf.hu/~holovacs/AB/4_SQL_1.htm#SQL4
+Ismerd meg a PHPMyadmin felületet. Ott tudod az adatbázist létrehozni, kezelni stb. kényelmesen.
+SQL parancsok egyszerűen, példákkal URL
+
+Adatbázis kiolvasás:
+Persze most már mysqli függvényeket használunk (tehát hozzá jön egy i betű a függvény nevének a végére)
+Ez a példa kapásból táblázatot is generál hozzá HTML-ben "Városnév" és "Lakosság" oszlopokkal.
+
+<?php
+$conn = new mysqli("localhost", "root", "", "world");
+if ($conn->connect_error) {
+die("Connection failed: " . $conn->connect_error);
+}
+$sql = "select name, population from city ";
+$result = $conn->query($sql);
+echo "<table border=1> <tr> <th>Városnév</th><th>Lakosság</th> </tr>" ;
+while ($eredmeny= mysqli_fetch_row($result) )
+{
+echo "<tr><td>" . $eredmeny[0] . "</td> <td>" . $eredmeny[1] . "</th></tr>" ;
+}
+echo "</table>" ;
+?>
