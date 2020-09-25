@@ -1,0 +1,43 @@
+<HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+function szamol(pont){
+var jegy;
+if(pont < 14)
+{
+	jegy = "elégtelen";
+}else if(pont > 13 && pont < 18)
+{
+	jegy = "elégséges";
+}else if(pont > 17 && pont < 24)
+{
+	jegy = "közepes";
+}else if(pont > 23 && pont < 30)
+{
+	jegy = "jó";
+}else if(pont > 29 && pont < 35)
+{
+	jegy = "kiváló";
+}else
+{
+	jegy = "Kérem a megfelelő intervallumban adjon meg számot (0-34)";
+}
+alert("Az ön jegye: "+ jegy);
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<FORM NAME="urlap1">
+Magasság:<BR>
+<INPUT TYPE="text"
+NAME="szam1"><BR>
+Alap sugara:<BR>
+<INPUT TYPE="text"
+NAME="szam2"><BR>
+<INPUT TYPE="button" VALUE="Számol"
+onClick="szamol(parseInt(document.urlap1.szam1.value))">
+</FORM>
+<BODY>
+
+
+
+

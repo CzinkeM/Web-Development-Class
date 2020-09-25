@@ -1,0 +1,38 @@
+<HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+function szamol(){
+var osszeg = parseInt(document.urlap1.szam1.value);
+var szamitott = osszeg;
+var celOsszeg = 100000;
+var kamat = 0.02;
+var honap = 0;
+var szoveg = " hónap múlva lesz, " + celOsszeg + "Ft-od";
+
+if(osszeg < celOsszeg)
+{
+	do
+	{
+		honap++;
+		osszeg = osszeg + osszeg * kamat;
+	}while(celOsszeg >= osszeg)
+	alert(honap + szoveg);
+}else
+{
+alert("Önnek már több mint " + celOsszeg + " megtakarított pénze van.");
+}
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<FORM NAME="urlap1">
+A megtakarított pénzed:<BR>
+<INPUT TYPE="text"
+NAME="szam1"><BR>
+<INPUT TYPE="button" VALUE="Számol"
+onClick="szamol()">
+</FORM>
+<BODY>
+
+
+
+

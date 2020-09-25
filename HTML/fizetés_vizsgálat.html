@@ -1,0 +1,29 @@
+<HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+function calculate(){
+var fizetes = parseInt(document.urlap1.osszeg.value);
+var eredmeny = 0;
+var mond;
+if(fizetes <= 100000)
+{
+ eredmeny = fizetes * 1.25;
+ mond = "Az új fizetése: " + eredmeny;
+}else
+{
+ eredmeny = fizetes;
+ mond = "A fizetése maradt a régi (" + eredmeny + ")";
+}
+alert(mond);
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<FORM NAME="urlap1">
+Adja meg a fizetését:<BR>
+<INPUT TYPE="text"
+NAME="osszeg"><BR>
+<INPUT TYPE="button" VALUE="Összead"
+onClick="calculate()">
+</FORM>
+<BODY>
+

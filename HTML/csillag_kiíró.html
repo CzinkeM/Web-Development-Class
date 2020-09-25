@@ -1,0 +1,27 @@
+<HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+function szamol(){
+var csillagSzam = parseInt(document.urlap1.szam1.value);
+var csillagok = "";
+var i;
+for (i = 0; i < csillagSzam; i++) {
+  csillagok = csillagok + "*";
+} 
+
+alert(csillagok);
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<FORM NAME="urlap1">
+Mennyi csillagra van szüksége:<BR>
+<INPUT TYPE="text"
+NAME="szam1"><BR>
+<INPUT TYPE="button" VALUE="Számol"
+onClick="szamol()">
+</FORM>
+<BODY>
+
+
+
+

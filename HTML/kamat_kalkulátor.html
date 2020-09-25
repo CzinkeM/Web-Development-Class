@@ -1,0 +1,32 @@
+<HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+function szamit(){
+var ossz = document.urlap1.osszeg.value*1;
+var k = document.urlap1.kamat.value*1;
+var ho = document.urlap1.honap.value*1;
+var eredmeny =
+ossz*Math.pow(1+k/100,ho/12);
+var kerek = Math.round(eredmeny)
+alert("Az eredmény: "+kerek + "Ft");
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<FORM NAME="urlap1">
+Betenni kívánt összeg:<BR>
+<INPUT TYPE="text"
+NAME="osszeg"><BR>
+Kamat (%):<BR>
+<INPUT TYPE="text"
+NAME="kamat"><BR>
+Hónapok száma:<BR>
+<INPUT TYPE="text"
+NAME="honap"><br>
+<INPUT TYPE="button" VALUE="Számol"
+onClick="szamit()">
+</FORM>
+<BODY>
+
+
+
+
