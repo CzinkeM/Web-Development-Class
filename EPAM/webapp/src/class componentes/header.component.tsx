@@ -1,9 +1,6 @@
 import React from 'react';
+import '../css/header.css'
 
-export class Header extends React.Component{
-    render():JSX.Element{
-        return <h1>
-            Welcome to the page!
-        </h1>
-    }
+export const Header = () => {
+    return <h1>Welcome to the page!</h1>
 }

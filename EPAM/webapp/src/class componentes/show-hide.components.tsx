@@ -1,40 +1,27 @@
+import { count } from 'console';
 import { relative } from 'path';
-import React from 'react';
+import React, { useState } from 'react';
 import { Helper } from './helper.component';
 
-interface ShowState{
-    isShown: boolean
-}
 
-export class ShowHide extends React.Component<any,ShowState>{
+export const ShowHide = () =>{
 
-constructor(props: any){
-    super(props);
-    this.state = {
-        isShown: false,
-
+    const [count, setter] =useState(false);
+    const ShowText = () => { 
+        setter(!count);
     }
-}
-    ShowText = () => { 
-        this.setState({
-           isShown: !this.state.isShown
-        })
-    }
-    buttonValue =() =>{
-        if(this.state.isShown)
+    const buttonValue =() =>{
+        if(count)
         {
-            return <button type="button" onClick={this.ShowText}>Hide</button>
+            return <button type="button" onClick={ShowText}>Hide</button>
         }else
         {
-            return <button type="button" onClick={this.ShowText}>Show</button>
+            return <button type="button" onClick={ShowText}>Show</button>
         }
     }
-
-    render():JSX.Element{
-        return<div>
+    return<div>
             <Helper text="This is a component wchich shows or hide the sample text"/>
-            {this.buttonValue()}
-            {this.state.isShown ? <div>This is a sample string</div>: null}
+            {buttonValue()}
+            {count ? <div>This is a sample string</div>: null}
         </div>
-    }
 }
